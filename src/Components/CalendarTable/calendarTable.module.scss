@@ -1,0 +1,30 @@
+.table {
+  padding: 0 10%;
+  cursor: pointer;
+  margin-bottom: 50px;
+}
+
+.row {
+  display: flex;
+}
+
+.yearCell {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.monthRow {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  width: 100%;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  border: 2px dashed darkseagreen;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  height: 100%;
+  font-size: 18px;
+}

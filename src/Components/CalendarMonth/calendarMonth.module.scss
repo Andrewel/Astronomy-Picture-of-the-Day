@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 50vw;
+  margin: 0 auto;
+}
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 2px;
+}
+
+.weekDay {
+  padding: 10px 15px;
+  border: 1px solid darkseagreen;
+  text-align: center;
+}
+
+.day {
+  position: relative;
+  height: calc(50vw / 14);
+}
+
+.month {
+  margin-top: 5px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 2px;
+}

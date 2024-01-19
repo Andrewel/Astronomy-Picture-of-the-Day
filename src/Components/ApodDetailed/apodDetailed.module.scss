@@ -1,0 +1,19 @@
+.container {
+  padding-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageContainer {
+  position: relative;
+  width: 900px;
+  height: 700px;
+}
+
+.explanation {
+  max-width: 1100px;
+  text-align: justify;
+}

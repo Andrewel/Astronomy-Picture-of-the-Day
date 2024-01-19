@@ -1,0 +1,16 @@
+.monthDate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+
+  a {
+    padding: 8px 15px 13px;
+    background-color: aquamarine;
+    color: burlywood;
+    font-weight: bold;
+    border-bottom: 5px solid darkseagreen;
+  }
+}
