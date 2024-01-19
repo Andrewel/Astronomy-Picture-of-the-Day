@@ -29,3 +29,13 @@
   grid-template-columns: repeat(7, 1fr);
   grid-gap: 2px;
 }
+
+.loaderContainer {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.cellLink:hover {
+  opacity: 0.8;
+}

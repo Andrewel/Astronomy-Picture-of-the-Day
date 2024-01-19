@@ -1,10 +1,10 @@
 import styles from './calendarMonth.module.scss'
 import {useEffect, useState} from "react";
 import {DataType} from "@/pages";
-import {useRouter} from "next/router";
 import {getApodsByDates} from "@/Axios/Apod";
 import Image from "next/image";
 import Link from "next/link";
+import Loader from '../../../public/loader.gif'
 
 type PropType = {
     year: string;
@@ -21,10 +21,12 @@ type RestMonthType = {
 }
 export const CalendarMonth = ({year, month}: PropType) => {
     const [state, setState] = useState<null | DataType[] | RestMonthType[]>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
         if (year && month) {
+            setIsLoading(true)
             let daysInMonth = new Date(+year, +month, 0).getDate();
 
             const date = new Date();
@@ -40,9 +42,7 @@ export const CalendarMonth = ({year, month}: PropType) => {
             }
 
             getApodsByDates(`${year}-${month}-1`, `${year}-${month}-${daysInMonth}`).then((res) => {
-
                 const indexOfDay = week.findIndex(day => day === week[new Date(res.data[0].date).getDay()])
-
 
                 if (indexOfDay === 0) {
                     setState([...res.data, ...restMonth]);
@@ -50,7 +50,7 @@ export const CalendarMonth = ({year, month}: PropType) => {
 
                     setState([...Array(indexOfDay).fill(emptyDay), ...res.data, ...restMonth]);
                 }
-            });
+            }).finally(() => setIsLoading(false));
         }
 
     }, [year, month]);
@@ -60,22 +60,27 @@ export const CalendarMonth = ({year, month}: PropType) => {
             <div className={styles.week}>{week.map((el, i) => {
                 return <div key={i} className={styles.weekDay}>{el}</div>
             })}</div>
-            <div className={styles.month}>
-                {state && state.map((day, i) => {
-                    return <div key={i} className={styles.day}>
-                        {
-                            day
-                                ? day.media_type === 'empty'
-                                    ? <Image src={dayUrlWithNoImage} alt='no image' fill/>
-                                    : <Link href={`/apod/${day.date}`}>
-                                        {day.media_type === 'image'
-                                            ? <Image src={day.url} alt='' fill/>
-                                            : <Image src={dayUrlWithNoImage} alt='no image' fill/>
-                                        }
-                                    </Link>
-                                : <></>}
-                    </div>
-                })}
+            <div>
+                {isLoading
+                    ? <div className={styles.loaderContainer}><Image src={Loader} alt='' width={50} height={50}/></div>
+                    : state && <div className={styles.month}>
+                    {state.map((day, i) => {
+                        return <div key={i} className={styles.day}>
+                            {
+                                day
+                                    ? day.media_type === 'empty'
+                                        ? <Image src={dayUrlWithNoImage} alt='no image' fill/>
+                                        : <Link href={`/apod/${day.date}`} className={styles.cellLink}>
+                                            {day.media_type === 'image'
+                                                ? <Image src={day.url} alt='' fill/>
+                                                : <Image src={dayUrlWithNoImage} alt='no image' fill/>
+                                            }
+                                        </Link>
+                                    : <></>}
+                        </div>
+                    })}
+                </div>
+                }
             </div>
         </div>
     )
